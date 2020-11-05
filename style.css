@@ -1,0 +1,41 @@
+*{
+    box-sizing: border-box;
+}
+/* HEADER PROPERTIES========================================== */
+header, #banner{
+    display: flex;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1vw;
+    padding: 1vw 1vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+/* BANNER PROPERTIES======================================== */
+#banner{
+    flex-direction: column;
+    align-items: center;
+}
+#banner h1{
+    font-size: 2vw;
+    font-weight: 900;
+    margin-bottom: 1vw;
+}
+
+#banner p{
+    font-size: 1vw;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1vw;
+}
+button{
+    font-size: 1vw;
+    background-color: blueviolet;
+    color: cornsilk;
+}
+   
