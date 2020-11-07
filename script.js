@@ -8,10 +8,21 @@ var secondsLeft = 70
 var delay = 2
 var x = 0
 var questions = [{q:"What JavaScript method do we use to change an attribute in our HTML code?",
-                  a:".setAttribute", f1:".getAttribute", f2:".attribute", f3:".changeAttribute"},
-                  {q:"what JavaScript method would we use to create a timer for a timed event?",
-                  a:".setInterval"  }
-                ]
+                a:".setAttribute", f1:".getAttribute", f2:".attribute", f3:".changeAttribute"},
+                {q:"what JavaScript method would we use to create a timer for a timed event?",
+                f1:"timer()", f2:"setTime", f3:".setMoment", a:".setInterval"  },
+                {q:"What are the some primitive data types in Javascript?", 
+                f1:"Objects, Strings, Arrays, Methods", a:"Strings, Numbers, Boleans, Undefined", f2:"Arrays, Querys, Id's, Classes", f3:"Boleans, Arrays, Functions, Methods"},
+                {q:'What data type is this variable using?   var = "true"',
+                a:"String", f1:"Bolean", f2:"Number", f3:"Character"},
+                {q:"What question will give me a Bolean Data Type response",
+                f1:'prompt("What is your favorite car?")', f2:'alert("Do you like oranges?")', a:'confirm("Do you like apples?")', f3:'prompt("Do you like cofee?")'},
+                {q:"What question will give me a String Data type response?",
+                f1:'confirm("Do you like apples?")', f2:'alert("What is your favorite food?")', f3:'confirm("How old are you?")', a:'prompt("What color are your eyes?"'},
+                {q:"Which one of these loops will return the value of Woohoo?",
+                f1:"else(win)[return Woohoo]", a:"if(win){return Woohoo}", f2:"for(win)[return Woohoo]", f3:"when(win)(return Woohoo"},
+
+            ]
 
 // FUNCTIONS===============================================
 function timer(){
@@ -25,18 +36,19 @@ function timer(){
     }, 1000)
 }
 
-function buttons2(){
-    var answers = Object.keys(questions[questionIndex])
-    console.log(answers)
-    var buttonsDiv = document.getElementById("buttDiv")
-    var buttons = document.createElement("button")
-    buttonsDiv.appendChild(buttons)
-    for (var i = 0, len = answers.length; i < len; i++)
-    buttons.textContent = answers[i]
-    // if()
+// function buttons2(){
+//     var answers = Object.keys(questions[0])
+    
+//     var buttonsDiv = document.getElementById("buttDiv")
+//     var buttons = document.createElement("button")
+//     buttonsDiv.appendChild(buttons)
+//     for (var i = 0, len = answers.length; i < len; i++){
+//     buttons.textContent = questions[0][answers[i]]
+//     console.log(answers[i])}
+//     // if()
 
 
-}
+// }
 
 function buttons(){
     // Initial Loop and Conditionals===================
@@ -85,8 +97,8 @@ function addQuestions(){
     // Text Content Settings====================
     question.textContent = questions[questionIndex].q
     
-    console.log(questions)
-    buttons2() 
+    // console.log(questions)
+    buttons() 
     x++
     }
     
@@ -122,6 +134,7 @@ function buttonClicks(){
                if(delay === 0){
                   qButtons.remove()
                   clearInterval(qDelay)
+                  delay = 2
                 quiz();  
                 }  
             }, 1000)
