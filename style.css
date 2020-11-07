@@ -34,8 +34,15 @@ header{
     margin-bottom: 1vw;
 }
 button{
-    font-size: 1vw;
+    font-size: 2.5vw;
     background-color: blueviolet;
     color: cornsilk;
 }
    
+.question{
+    font-size: vw;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-center;
+}
