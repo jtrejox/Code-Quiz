@@ -4,7 +4,7 @@ var timerEl = document.getElementById("timer")
 var buttonEl = document.getElementById("start_button")
 var bodyEl = document.querySelector("body")
 var qButtons = document.getElementById("qdiv")
-var secondsLeft = 70
+var secondsLeft = 1
 var delay = 1
 var score = 0
 var questions = [{q:"What JavaScript method do we use to change an attribute in our HTML code?",
@@ -31,8 +31,10 @@ function timer(){
         secondsLeft--;
         timerEl.textContent = "Timer: "+ secondsLeft;
         if (secondsLeft === 0) {
+            endOfQuiz()
             clearInterval(timerInterval);
-            window.location.href = "HighScores.html"
+            // window.location.href = "HighScores.html"
+            
         }
     }, 1000)
 }
@@ -43,7 +45,7 @@ function quiz(){
     questionIndex = Math.floor(Math.random()* questions.length)
     //Removal of initial banner============================
     bannerEl.setAttribute("style", "display:none;");
-    //Variable declarations================================
+    //Creation of New Elements================================
     var div = document.createElement("div");
     //Appending Statements==================================
     bodyEl.appendChild(div);
@@ -59,7 +61,7 @@ function addQuestions(){
      if(questions.length === 0){
         window.location.href = "HighScores.html"
     }
-    // Variable declarations=================
+    // Creation of New Elements=================
     var div = document.createElement("div")
     var intDiv = document.createElement("div")
     var question = document.createElement("h1")
@@ -83,7 +85,7 @@ function buttons(){
     // Initial Loop and Conditionals===================
     for (let ans in questions[questionIndex]){
         if (ans !== "q"){
-            // Variable Declarations=======================
+            // Variable Declarations and Creation of New Elements=======================
             var quest = questions[questionIndex][ans]
             var buttonsDiv = document.getElementById("buttDiv")
             var buttons = document.createElement("button")
@@ -104,7 +106,7 @@ function buttons(){
 
 //FUNCTION TO CHANGE THE COLOR OF THE BUTTONS WHEN THE QUESTION IS ANSWERED
 function colorButtons(){
-    //Variable Declarations===========================
+    //Creation of New Elements===========================
     var correct = document.getElementById("a")
     var wrong = document.querySelectorAll("#f")
     //Element Attribute Settings==========================
@@ -115,7 +117,7 @@ function colorButtons(){
 }
 //FUNCTION TO CREATE A DELAY BETWEEN WHEN THE QUESTION IS ANSWERED AND THE RENDERING OF A NEW QUESTION
 function clearDelay(){
-    //Variable Declarations===========================
+    //Creation of New Elements===========================
     var qButtons = document.getElementById("qdiv")
     //Interval for delay, Countdown Initialization, Removal of question answered and Rendering of new question
     var qDelay = setInterval(function(){    
@@ -149,12 +151,44 @@ function buttonClick(){
         clearDelay();
     }
 } 
+//FUNCTION TO RENDER SCORE AND INPUT INTIALS AT THE END OF THE QUIZ
+function endOfQuiz(){
+    //Removal of questions============================
+    var qButtons = document.getElementById("qdiv")
+    qButtons.remove()
+    //Creation of New Elements============================
+    var endDiv = document.createElement("div")
+    var endDivCh1 = document.createElement("div")
+    var endDivCh2 = document.createElement("div")
+    var endP = document.createElement("h1")
+    var endLabel = document.createElement("label")
+    var endInput = document.createElement("input")
+    var endButton = document.createElement("button")
+    //Element Attribute Settings==========================
+    endDiv.setAttribute("class", "divs endDiv list endP")
+    endLabel.setAttribute("for", "endInput")
+    endInput.setAttribute("id", "endInput")
+    bodyEl.appendChild(endDiv)
+    endDiv.appendChild(endDivCh1)
+    endDiv.appendChild(endDivCh2)
+    endDivCh1.appendChild(endP)
+    endDivCh2.appendChild(endLabel)
+    endDivCh2.appendChild(endInput)
+    endDivCh2.appendChild(endButton)
+    //Text Content Settings===============================
+    endP.textContent = "YOUR HIGH SCORE IS: " + score
+    endLabel.textContent = "Enter Your Initals: "
+
+
+
+}
 
 //EVENT LISTENERS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 //EVENT LISTENER FOR THE "START QUIZ" BUTTON IN THE MAIN PAGE
 buttonEl.addEventListener("click", function(){
     timer()
     quiz()
+    // endOfQuiz()
 })
 //EVENT LISTENER FOR "ANSWER" BUTTONS IN THE QUIZ INTERFACE
 document.addEventListener("click", function(event){

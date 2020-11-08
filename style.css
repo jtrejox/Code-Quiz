@@ -56,3 +56,12 @@ button{
 .wrong{
     background-color: red;
 }
+
+.endDiv{
+    margin-top: 11vw;
+}
+
+.endP{
+    font-size: 2vw;
+    font-weight: 600;
+}
