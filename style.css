@@ -64,4 +64,10 @@ button{
 .endP{
     font-size: 2vw;
     font-weight: 600;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.endButton{
+    font-size: 1.5vw;
+    
 }

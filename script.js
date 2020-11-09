@@ -7,6 +7,7 @@ var qButtons = document.getElementById("qdiv")
 var secondsLeft = 1
 var delay = 1
 var score = 0
+var qSignal = 1
 var questions = [{q:"What JavaScript method do we use to change an attribute in our HTML code?",
                 a:".setAttribute", f1:".getAttribute", f2:".attribute", f3:".changeAttribute"},
                 {q:"what JavaScript method would we use to create a timer for a timed event?",
@@ -30,19 +31,40 @@ function timer(){
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = "Timer: "+ secondsLeft;
-        if (secondsLeft === 0) {
-            endOfQuiz()
+        console.log(qSignal)
+        if (secondsLeft <= 0) {
+            secondsLeft = 0
+            timerEl.textContent = "Timer: "+ secondsLeft;
+            //Removal of questions============================
+            var qButtons = document.getElementById("qdiv");
+            qButtons.remove();
+            endOfQuiz();
             clearInterval(timerInterval);
-            // window.location.href = "HighScores.html"
+            return
+        //Added conditional to recieve a signal from the "quiz()" function to stop the timer
+        }
+        
+        else if(qSignal === 0){
             
+            clearInterval(timerInterval);
+            endOfQuiz();
+            return
         }
     }, 1000)
 }
 
 //FUNCTION TO CREATE AND APPEND ELEMENTS OF THE QUIZ INTERFACE AND THE SELECTION OF A RANDOM QUESTION   
 function quiz(){
+    console.log(qSignal)
+    //Conditional to check if there are any questions left==
+    if(questions.length <= 0||secondsLeft <= 0){
+        
+        qSignal = 0
+        console.log(qSignal)
+        return
+    }
     //Selection of arandom question from the questions array
-    questionIndex = Math.floor(Math.random()* questions.length)
+    questionIndex = Math.floor(Math.random()* questions.length);
     //Removal of initial banner============================
     bannerEl.setAttribute("style", "display:none;");
     //Creation of New Elements================================
@@ -57,24 +79,20 @@ function quiz(){
 
 // FUNCTION TO ADD THE QUESTIONS TO THE QUIZ INTERFACE==
 function addQuestions(){
-    //Conditional to check if there are any questions left==
-     if(questions.length === 0){
-        window.location.href = "HighScores.html"
-    }
     // Creation of New Elements=================
-    var div = document.createElement("div")
-    var intDiv = document.createElement("div")
-    var question = document.createElement("h1")
-    var qdiv = document.getElementById("qdiv")
+    var div = document.createElement("div");
+    var intDiv = document.createElement("div");
+    var question = document.createElement("h1");
+    var qdiv = document.getElementById("qdiv");
     // Appending Statements===================
-    qdiv.appendChild(div)
-    div.appendChild(question)
-    qdiv.appendChild(intDiv)
+    qdiv.appendChild(div);
+    div.appendChild(question);
+    qdiv.appendChild(intDiv);
     //Element Attribute Settings======================
-    intDiv.setAttribute("class", "question")
-    intDiv.setAttribute("id", "buttDiv")
-    qdiv.setAttribute("class", "divs list")
-    question.setAttribute("class", "big-text")
+    intDiv.setAttribute("class", "question");
+    intDiv.setAttribute("id", "buttDiv");
+    qdiv.setAttribute("class", "divs list");
+    question.setAttribute("class", "big-text");
     // Text Content Settings====================
     question.textContent = questions[questionIndex].q
     buttons() 
@@ -86,13 +104,13 @@ function buttons(){
     for (let ans in questions[questionIndex]){
         if (ans !== "q"){
             // Variable Declarations and Creation of New Elements=======================
-            var quest = questions[questionIndex][ans]
-            var buttonsDiv = document.getElementById("buttDiv")
-            var buttons = document.createElement("button")
+            var quest = questions[questionIndex][ans];
+            var buttonsDiv = document.getElementById("buttDiv");
+            var buttons = document.createElement("button");
             //Appending Statements=====================
-            buttonsDiv.appendChild(buttons)
+            buttonsDiv.appendChild(buttons);
             //Text Content Settings====================
-            buttons.textContent = quest
+            buttons.textContent = quest;
             //Conditionals for Element Attribute Settings====== 
             if(ans === "a"){
                 buttons.setAttribute("id", "a")
@@ -107,10 +125,10 @@ function buttons(){
 //FUNCTION TO CHANGE THE COLOR OF THE BUTTONS WHEN THE QUESTION IS ANSWERED
 function colorButtons(){
     //Creation of New Elements===========================
-    var correct = document.getElementById("a")
-    var wrong = document.querySelectorAll("#f")
+    var correct = document.getElementById("a");
+    var wrong = document.querySelectorAll("#f");
     //Element Attribute Settings==========================
-    correct.setAttribute("class", "correct")
+    correct.setAttribute("class", "correct");
     for (var i = 0; i < wrong.length; i++){
         wrong[i].setAttribute("class", "wrong")
     }
@@ -118,80 +136,84 @@ function colorButtons(){
 //FUNCTION TO CREATE A DELAY BETWEEN WHEN THE QUESTION IS ANSWERED AND THE RENDERING OF A NEW QUESTION
 function clearDelay(){
     //Creation of New Elements===========================
-    var qButtons = document.getElementById("qdiv")
+    var qButtons = document.getElementById("qdiv");
     //Interval for delay, Countdown Initialization, Removal of question answered and Rendering of new question
     var qDelay = setInterval(function(){    
-        delay--
+        delay--;
         if(delay === 0){
-            qButtons.remove()
-            clearInterval(qDelay)
-            delay = 1
-            questions.splice([questionIndex],1)
-            quiz();  
+            qButtons.remove();
+            clearInterval(qDelay);
+            delay = 1;
+            questions.splice([questionIndex],1);
+            quiz()
         }  
     }, 1000)
 }
 // FUNCTION TO HANDLE THE DIFERENT BUTTON CHOICES IN THE QUIZ INTERFACE
-function buttonClick(){
+function buttonClick(event){
     //Conditional to limit click triggering to the buttons only
     if(event.target.tagName != "BUTTON"){
         return
     }
     //Conditional determining the behavior when the correct answer is selected
     else if (event.target.id === "a"){
-        colorButtons()
-        score++
+        colorButtons();
+        score++;
+        localStorage.setItem("score", score);
         clearDelay()
     }
     //Conditional determining the behavior when the wrong answer is selected
     else if(event.target.id === "f"){
         colorButtons();
         score--; 
-        secondsLeft -= 5;
+        localStorage.setItem("score", score);
+        secondsLeft -= 10;
         clearDelay();
     }
 } 
 //FUNCTION TO RENDER SCORE AND INPUT INTIALS AT THE END OF THE QUIZ
 function endOfQuiz(){
-    //Removal of questions============================
-    var qButtons = document.getElementById("qdiv")
-    qButtons.remove()
+ 
     //Creation of New Elements============================
-    var endDiv = document.createElement("div")
-    var endDivCh1 = document.createElement("div")
-    var endDivCh2 = document.createElement("div")
-    var endP = document.createElement("h1")
-    var endLabel = document.createElement("label")
-    var endInput = document.createElement("input")
-    var endButton = document.createElement("button")
+    var endDiv = document.createElement("div");
+    var endDivCh1 = document.createElement("div");
+    var endDivCh2 = document.createElement("div");
+    var endP = document.createElement("h1");
+    var endLabel = document.createElement("label");
+    var endInput = document.createElement("input");
+    var endButton = document.createElement("button");
     //Element Attribute Settings==========================
-    endDiv.setAttribute("class", "divs endDiv list endP")
-    endLabel.setAttribute("for", "endInput")
-    endInput.setAttribute("id", "endInput")
-    bodyEl.appendChild(endDiv)
-    endDiv.appendChild(endDivCh1)
-    endDiv.appendChild(endDivCh2)
-    endDivCh1.appendChild(endP)
-    endDivCh2.appendChild(endLabel)
-    endDivCh2.appendChild(endInput)
-    endDivCh2.appendChild(endButton)
+    endDiv.setAttribute("class", "divs endDiv list endP");
+    endLabel.setAttribute("for", "endInput");
+    endInput.setAttribute("id", "endInput");
+    endButton.setAttribute("class", "endButton");
+    endInput.setAttribute("class", "endButton");
+    bodyEl.appendChild(endDiv);
+    endDiv.appendChild(endDivCh1);
+    endDiv.appendChild(endDivCh2);
+    endDivCh1.appendChild(endP);
+    endDivCh2.appendChild(endLabel);
+    endDivCh2.appendChild(endInput);
+    endDivCh2.appendChild(endButton);
     //Text Content Settings===============================
-    endP.textContent = "YOUR HIGH SCORE IS: " + score
-    endLabel.textContent = "Enter Your Initals: "
-
-
-
+    endP.textContent = "YOUR HIGH SCORE IS: " + score;
+    endLabel.textContent = "Enter Your Initals: ";
+    endButton.textContent = "Submit";
+    endButton.addEventListener("click", function(){
+        var initials = endInput.value
+        localStorage.setItem("initials", initials)
+        console.log(localStorage.getItem("initials"))    
+        console.log(localStorage.getItem("score"))    
+    })
+    
 }
 
 //EVENT LISTENERS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 //EVENT LISTENER FOR THE "START QUIZ" BUTTON IN THE MAIN PAGE
 buttonEl.addEventListener("click", function(){
-    timer()
+    timer();
     quiz()
-    // endOfQuiz()
+    endOfQuiz()
 })
 //EVENT LISTENER FOR "ANSWER" BUTTONS IN THE QUIZ INTERFACE
-document.addEventListener("click", function(event){
-buttonClick();
-})
-
+document.addEventListener("click", buttonClick)
