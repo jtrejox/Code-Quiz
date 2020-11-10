@@ -24,6 +24,8 @@ var questions = [{q:"What JavaScript method do we use to change an attribute in 
                 f1:"else(win)[return Woohoo]", a:"if(win){return Woohoo}", f2:"for(win)[return Woohoo]", f3:"when(win)(return Woohoo"},
 
             ]
+var highScores = []
+var obj ={}
 
 // FUNCTIONS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 //FUNCTION TO CREATE THE QUIZ TIMER 
@@ -159,14 +161,14 @@ function buttonClick(event){
     else if (event.target.id === "a"){
         colorButtons();
         score++;
-        localStorage.setItem("score", score);
+        // localStorage.setItem("score", score);
         clearDelay()
     }
     //Conditional determining the behavior when the wrong answer is selected
     else if(event.target.id === "f"){
         colorButtons();
         score--; 
-        localStorage.setItem("score", score);
+        // localStorage.setItem("score", score);
         secondsLeft -= 10;
         clearDelay();
     }
@@ -200,10 +202,17 @@ function endOfQuiz(){
     endLabel.textContent = "Enter Your Initals: ";
     endButton.textContent = "Submit";
     endButton.addEventListener("click", function(){
-        var initials = endInput.value
-        localStorage.setItem("initials", initials)
-        console.log(localStorage.getItem("initials"))    
-        console.log(localStorage.getItem("score"))    
+        var initials = endInput.value;
+        // localStorage.setItem("initials", initials);
+        obj["initials"] = initials;
+        obj["score"] = score;
+        highScores.push(obj)
+        localStorage.setItem("highScores", JSON.stringify(highScores))
+        console.log(highScores)
+        window.location.href = "HighScores.html"
+
+        // console.log(localStorage.getItem("initials"))    
+        // console.log(localStorage.getItem("score"))    
     })
     
 }

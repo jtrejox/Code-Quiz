@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>High Socres</title>
+    <title>High Scores</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
+    <div class="divs list endP">
+        <div >
+            <h1>High Scores</h1>
+        </div>
+        <div >
+            <p id="hs" class="endP"></p>
+        </div>
         <div>
-
+            <button class="endButton">Try Again?</button>
         </div>
     </div>
-    
+    <script>
+        var highScores = JSON.parse(localStorage.getItem("highScores"))
+        var highScoresEl = document.getElementById("hs")
+        
+        highScoresEl.textContent = highScores[0].initials + " " + highScores[0].score
+        console.log(highScores)
+
+
+    </script>
 </body>
 </html>
