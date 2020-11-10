@@ -35,6 +35,7 @@ header{
     margin-bottom: 1vw;
 }
 button{
+    border-radius: 4%;
     font-size: 2.1vw;
     background-color: teal;
     color: white;
@@ -69,5 +70,12 @@ button{
 
 .endButton{
     font-size: 1.5vw;
-    
+}
+
+.highScores{
+    margin-top: 11vw;
+}
+
+.hsbutton{
+    margin-top: 3vw;
 }
