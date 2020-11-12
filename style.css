@@ -9,6 +9,7 @@
     margin-right: auto;
     margin-bottom: 1vw;
     padding: 1vw 1vw;
+    font-size: 1vw;
     font-family: Arial, Helvetica, sans-serif;
 }
 header{
@@ -16,7 +17,6 @@ header{
     font-weight: 600;
 }
 
-/* BANNER PROPERTIES======================================== */
 .list{
     flex-direction: column;
     align-items: center;

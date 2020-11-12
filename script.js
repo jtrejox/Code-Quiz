@@ -12,7 +12,7 @@ var questions = [{q:"What JavaScript method do we use to change an attribute in 
                 a:".setAttribute", f1:".getAttribute", f2:".attribute", f3:".changeAttribute"},
                 {q:"what JavaScript method would we use to create a timer for a timed event?",
                 f1:"timer()", f2:"setTime", f3:".setMoment", a:".setInterval"  },
-                {q:"What are the some primitive data types in Javascript?", 
+                {q:"What are some primitive data types in Javascript?", 
                 f1:"Objects, Strings, Arrays, Methods", a:"Strings, Numbers, Boleans, Undefined", f2:"Arrays, Querys, Id's, Classes", f3:"Boleans, Arrays, Functions, Methods"},
                 {q:'What data type is this variable using?   var = "true"',
                 a:"String", f1:"Bolean", f2:"Number", f3:"Character"},
