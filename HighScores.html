@@ -7,13 +7,12 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="body2">
     <div class=" highScores divs list endP">
         <div >
             <h1>High Scores</h1>
         </div>
-        <div id="hsdiv">
-            <!-- <p id="hs" class="endP"></p> -->
+        <div id="hsdiv" >
         </div>
         <div>
             <a href="index.html"><button class="endButton hsbutton">Try Again?</button></a>
@@ -27,7 +26,7 @@
         var p = document.createElement("p")
             p.setAttribute("id", "hs")
             p.setAttribute("class", "endP")
-            p.textContent = prop.initials + " " + prop.score
+            p.textContent = prop.initials + " : " + prop.score
             highScoresEl.appendChild(p)
         };
 

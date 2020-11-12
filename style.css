@@ -35,10 +35,11 @@ header{
     margin-bottom: 1vw;
 }
 button{
-    border-radius: 4%;
+    /* border-radius: 4%;s */
     font-size: 2.1vw;
-    background-color: teal;
-    color: white;
+    background-color: rgb(36, 35, 35);
+    border: rgb(41, 5, 246) solid 0.3vw;
+    color: rgb(211, 210, 200);
     margin-bottom: 1vw;
 
 }
@@ -63,6 +64,7 @@ button{
 }
 
 .endP{
+    color: rgb(29, 29, 110);
     font-size: 2vw;
     font-weight: 600;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -78,4 +80,8 @@ button{
 
 .hsbutton{
     margin-top: 3vw;
+}
+
+.body2{
+    background-color: wheat;
 }

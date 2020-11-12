@@ -4,7 +4,7 @@ var timerEl = document.getElementById("timer")
 var buttonEl = document.getElementById("start_button")
 var bodyEl = document.querySelector("body")
 var qButtons = document.getElementById("qdiv")
-var secondsLeft = 2
+var secondsLeft = 70
 var delay = 1
 var score = 0
 var qSignal = 1
@@ -22,6 +22,32 @@ var questions = [{q:"What JavaScript method do we use to change an attribute in 
                 f1:'confirm("Do you like apples?")', f2:'alert("What is your favorite food?")', f3:'confirm("How old are you?")', a:'prompt("What color are your eyes?"'},
                 {q:"Which one of these loops will return the value of Woohoo?",
                 f1:"else(win)[return Woohoo]", a:"if(win){return Woohoo}", f2:"for(win)[return Woohoo]", f3:"when(win)(return Woohoo"},
+                {q:"Whchi one of these variables is an valid array?",
+                a:'var{"parrot", "cat", "dog"}', f1:'var animals = ["cow", "sheep", "horse"]', f2:'var["cat", "goat", "horse"', f3:'animals = ("dog, horse, pig")'},
+                {q:'How would you console log the word "dog" in the following array? var = animals["cat", "dog", "parrot"]',
+                f1:'console.log(animals["dog"])', f2:'console.log.animals.dog', a:'console.log(animals[1])', f3:'console.log(dog[1])'},
+                {q:'How would you obtain the index number for dog in the following array?   var = animals["cat", "dog", "parrot"]',
+                f1:'animals.indexOf[1]', f2:'animals(indexOf("dog"))', f3:'animals:indexOf("dog")', a:"animals.indexOf(dog)"},
+                {q:'How would you alert the word "Woohoo" to the main page?',
+                f1:'alert:{"Woohoo"}', a:'alert("Woohoo")', f2:'alert.Woohoo', f3:'alert = "Woohoo"' },
+                {q:'How would you turn the following variable to all lowercase letters?   var x = "drinks"',
+                f1:'x.lowerCase', f2:'toLowerCase(x)', f3:'x = x.lowerCase', a:'x.toLowerCase()'},
+                {q:'How would you create a "for" loop?',
+                a:'for(var i =0; i< 5; i++){}', f1:'for(var = 0;i< 5;i++){}', f2:'for = (var i = 0; i< 5;i++){}', f3:'for[var i = 0; i< 5;i++]{}'},
+                {q:'How would you write an "if" statements that checks if 2 conditions are true?',
+                f1:'if(x = 5 || y = 7){}', f2:'if[(x = 5) && (y = 7)]{}', a:'if(x = 5 && y = 7){}', f3:'if[x = 5] && [y = 7]{}'},
+                {q:'How would you generate a random number using the "Math" method',
+                f1:'Math.random()[ * Math.floor(3)]', a:'Math.floor(Math.random() * 3)', f2:'Math.floor(Math.random * 3)', f3:'Math.random(Math.floor{} * 3)'},
+                {q:'How would you console log the second item inside the "Students1" array?   class = [Students1, Students2, Students3]',
+                f1:'console.log(Students1.1)', a:'console.log(Students1[1])', f2:'console.log(Students1[2])', f3:'console.log(Students1(1))'},
+                {q:'How would you insert an item called "lemons" into an empty array?',
+                a:'array.push("lemons")', f1:'array = ("lemons")', f2:'push.array("lemons")', f3:'array.push = "lemons"'},
+                {q:'How would you "call" a function called "changeObjects" in javascript?',
+                f1:'call.changeObjects()', f2:'function(changeObjects)', f3:'call(changeObjects)', a:'changeObjects()'},
+                {q:'How would you "pass" the variable "x" into the "changeObjects" function?',
+                f1:'changeObjects[x]', a:'changeObjects(x)', f2:'changeObjects += x', f3:'changeObjects.x'},
+                {q:' How would you console log the name of the person from the following object?   var person = {"name":"Joe", "age": 31}',
+                f1:'console.log(person(name))', f2:'console.log(name(person))', a:'console.log(person.name)', f3:'console.log(person[0]'}
 
             ]
 var highScores = []
@@ -42,8 +68,9 @@ function timer(){
             endOfQuiz();
             clearInterval(timerInterval);
             return
-        //Added conditional to recieve a signal from the "quiz()" function to stop the timer
         }
+        //Added conditional to recieve a signal from the "quiz()" function to stop the timer
+        
         
         else if(qSignal === 0){
             
@@ -208,7 +235,6 @@ function endOfQuiz(){
                 highScores.push(storedArr[i])
             }
         }
-        console.log(highScores + "2")
         obj["initials"] = initials;
         obj["score"] = score;
         highScores.push(obj)
@@ -225,7 +251,6 @@ function endOfQuiz(){
 buttonEl.addEventListener("click", function(){
     timer();
     quiz()
-    endOfQuiz()
 })
 //EVENT LISTENER FOR "ANSWER" BUTTONS IN THE QUIZ INTERFACE
 document.addEventListener("click", buttonClick)
