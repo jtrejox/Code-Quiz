@@ -4,7 +4,7 @@ var timerEl = document.getElementById("timer")
 var buttonEl = document.getElementById("start_button")
 var bodyEl = document.querySelector("body")
 var qButtons = document.getElementById("qdiv")
-var secondsLeft = 70
+var secondsLeft = 2
 var delay = 1
 var score = 0
 var qSignal = 1
@@ -33,7 +33,6 @@ function timer(){
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = "Timer: "+ secondsLeft;
-        console.log(qSignal)
         if (secondsLeft <= 0) {
             secondsLeft = 0
             timerEl.textContent = "Timer: "+ secondsLeft;
@@ -57,12 +56,10 @@ function timer(){
 
 //FUNCTION TO CREATE AND APPEND ELEMENTS OF THE QUIZ INTERFACE AND THE SELECTION OF A RANDOM QUESTION   
 function quiz(){
-    console.log(qSignal)
     //Conditional to check if there are any questions left==
     if(questions.length <= 0||secondsLeft <= 0){
         
         qSignal = 0
-        console.log(qSignal)
         return
     }
     //Selection of arandom question from the questions array
@@ -203,16 +200,22 @@ function endOfQuiz(){
     endButton.textContent = "Submit";
     endButton.addEventListener("click", function(){
         var initials = endInput.value;
-        // localStorage.setItem("initials", initials);
+        var storedArr = JSON.parse(localStorage.getItem("highScores"))
+        console.log(highScores + "1")
+        console.log(storedArr)
+        if(storedArr){
+            for (var i = 0; i < storedArr.length; i++){
+                highScores.push(storedArr[i])
+            }
+        }
+        console.log(highScores + "2")
         obj["initials"] = initials;
         obj["score"] = score;
         highScores.push(obj)
         localStorage.setItem("highScores", JSON.stringify(highScores))
-        console.log(highScores)
+        console.log(highScores + "3")
         window.location.href = "HighScores.html"
 
-        // console.log(localStorage.getItem("initials"))    
-        // console.log(localStorage.getItem("score"))    
     })
     
 }
@@ -226,3 +229,7 @@ buttonEl.addEventListener("click", function(){
 })
 //EVENT LISTENER FOR "ANSWER" BUTTONS IN THE QUIZ INTERFACE
 document.addEventListener("click", buttonClick)
+
+// var storedArr = localStorage.getItem("highScores")
+// console.log(highScores + "1")
+// console.log(storedArr)

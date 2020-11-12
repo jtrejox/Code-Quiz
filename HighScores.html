@@ -12,20 +12,28 @@
         <div >
             <h1>High Scores</h1>
         </div>
-        <div >
-            <p id="hs" class="endP"></p>
+        <div id="hsdiv">
+            <!-- <p id="hs" class="endP"></p> -->
         </div>
         <div>
-            <button class="endButton hsbutton">Try Again?</button>
+            <a href="index.html"><button class="endButton hsbutton">Try Again?</button></a>
         </div>
     </div>
     <script>
         var highScores = JSON.parse(localStorage.getItem("highScores"))
-        var highScoresEl = document.getElementById("hs")
         
-        highScoresEl.textContent = highScores[0].initials + " " + highScores[0].score
-        console.log(highScores)
+       function createPar(prop){
+        var highScoresEl = document.getElementById("hsdiv")
+        var p = document.createElement("p")
+            p.setAttribute("id", "hs")
+            p.setAttribute("class", "endP")
+            p.textContent = prop.initials + " " + prop.score
+            highScoresEl.appendChild(p)
+        };
 
+          highScores.forEach(function(prop) {
+            createPar(prop)
+          })
 
     </script>
 </body>
